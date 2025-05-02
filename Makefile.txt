@@ -1,0 +1,24 @@
+CXX = g++
+
+CXXFLAGS = -std=c++17 -pthread
+
+LDFLAGS = -lssl -lcrypto
+
+TARGET = hash
+
+SRCS = bruteForceHash.cpp
+
+OBJS = $(SRCS:.cpp=.o)
+all: bruteForceHash
+
+bruteForceHash: $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS) $(LDFLAGS)
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+run: all
+	./hash test
+	./hash 1234
+	./hash 12345
+	./hash abcd
